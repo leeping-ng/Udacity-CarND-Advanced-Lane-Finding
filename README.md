@@ -1,8 +1,10 @@
 # Udacity-CarND-Advanced-Lane-Lines
 A computer vision project that detects lane lines on a video of a driving car for the Udacity Self-Driving Car Engineer Nanodegree.
 
-This image shows the result of my code applied to an image. 
+This is the original image viewed from a car driving on a highway.
+<img src='https://github.com/leeping-ng/Udacity-CarND-Advanced-Lane-Lines/blob/master/test_images/test2.jpg' width='500'>
 
+This image shows the result of my code applied to the original image.
 <img src='https://github.com/leeping-ng/Udacity-CarND-Advanced-Lane-Lines/blob/master/writeup_images/result.jpg' width='500'>
 
 This **YouTube video** shows the result of my code applied to a video.
