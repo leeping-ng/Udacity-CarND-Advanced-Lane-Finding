@@ -1,7 +1,16 @@
 # Udacity-CarND-Advanced-Lane-Lines
 A computer vision project that detects lane lines on a video of a driving car for the Udacity Self-Driving Car Engineer Nanodegree.
 
-The code goes through the following steps:
+This image shows the result of my code applied to an image. 
+
+<img src='https://github.com/leeping-ng/Udacity-CarND-Advanced-Lane-Lines/blob/master/writeup_images/result.jpg' width='500'>
+
+This **YouTube video** shows the result of my code applied to a video.
+
+https://www.youtube.com/watch?v=hi45YkKe2KI
+
+
+A Jupyter notebook of my code (Advanced Lane Finding.ipynb) is available in this repo. The code goes through the following steps:
 - Step 0: Import Libraries
 - Step 1: Calibrate Camera
 - Step 2: Undistort Image
@@ -22,7 +31,7 @@ Feed into this function a number of chessboard images (20 for accuracy) taken by
 
 The image below shows the corners on a chessboard image detected by the cv2.findChessboardCorners() function, and drawn by the cv2.drawChessboardCorners() function.
 
-**Insert Image**
+<img src='https://github.com/leeping-ng/Udacity-CarND-Advanced-Lane-Lines/blob/master/writeup_images/corners_on_chessboard_image.jpg' width='500'>
 
 ### Step 2: Undistort Image
 Takes in a camera image, camera matrix and distortion coefficients (from Step 1), and returns an undistorted image using the cv2.undistort() function.
@@ -31,7 +40,7 @@ Takes in a camera image, camera matrix and distortion coefficients (from Step 1)
 
 It can be observed below that there are slight differences between the original and undistorted image.
 
-**Insert Image**
+<img src='https://github.com/leeping-ng/Udacity-CarND-Advanced-Lane-Lines/blob/master/writeup_images/compare_distort.JPG' width='1000'>
 
 ### Step 3: Apply Colour and Gradient Thresholding
 Takes in an undistorted image and returns a binary image with a combination of colour and gradient thresholding applied.
@@ -39,46 +48,46 @@ Takes in an undistorted image and returns a binary image with a combination of c
 A. Gradient Thresholding:
 - Sobel x using the abs_sobel_thresh(orient='x') function, which emphasizes vertical edges
 
-**Insert Image**
+<img src='https://github.com/leeping-ng/Udacity-CarND-Advanced-Lane-Lines/blob/master/writeup_images/gradx_binary.jpg' width='500'>
 
 - Sobel y using the abs_sobel_thresh(orient='y') function, which emphasizes horizontal edges
 
-**Insert Image**
+<img src='https://github.com/leeping-ng/Udacity-CarND-Advanced-Lane-Lines/blob/master/writeup_images/grady_binary.jpg' width='500'>
 
 - Magnitude of gradient using the mag_thresh() function, which is the magnitude of Sobel x and Sobel y. This is equivalent to using the Canny edge detection filter, and is good for picking up all edges.
 
-**Insert Image**
+<img src='https://github.com/leeping-ng/Udacity-CarND-Advanced-Lane-Lines/blob/master/writeup_images/mag_binary.jpg' width='500'>
 
 - Direction of gradient using the dir_thresh() function, which picks out edges of a particular orientation (in this case, orientation of lane lines)
 
-**Insert Image**
+<img src='https://github.com/leeping-ng/Udacity-CarND-Advanced-Lane-Lines/blob/master/writeup_images/dir_binary.jpg' width='500'>
 
 B. Colour Thresholding:
 - In the HLS space (hue, lightness, and saturation), the Saturation (S) channel picks up the lane lines well under very different color and contrast conditions, hence the S colour threshold is chosen
 
-**Insert Image**
+<img src='https://github.com/leeping-ng/Udacity-CarND-Advanced-Lane-Lines/blob/master/writeup_images/s_binary.jpg' width='500'>
 
 C. Combining Thresholds:
 - In the combined_col_grad_thresh() function, the different thresholds described in (A) and (B) are combined in the following way: *{[(Sobel x and Sobel y) or (mag_thresh and dir_thresh)] or s_channel}*
 
-**Insert Image**
+<img src='https://github.com/leeping-ng/Udacity-CarND-Advanced-Lane-Lines/blob/master/writeup_images/combined_binary.jpg' width='500'>
 
 ### Step 4: Perspective Transform
 Takes in an undistorted, thresholded binary image, and returns a warped top-down view of the image and perspective transform matrix (M) which will be used in Step 7.
 
 **How**: 4 source (src) points from the binary image are chosen, resembling a trapezium around the lane lines boundary. 4 destination (dst) points on the resulting top-down image are chosen, to map the trapezium shape into a rectangle shape using the cv2.getPerspectiveTransform() function.
 
-**Insert Image**
+<img src='https://github.com/leeping-ng/Udacity-CarND-Advanced-Lane-Lines/blob/master/writeup_images/warped_img.jpg' width='500'>
 
 ### Step 5: Find Lane Lines
 Here, two functions are defined.
 1) The sliding_windows() function takes in a binary top-down image, and returns the coefficients of the polynomials for the left and right lanes. This is the full algorithm used to find the lane lines from scratch, using histogram to perform a blind search.
 
-**Insert Image**
+<img src='https://github.com/leeping-ng/Udacity-CarND-Advanced-Lane-Lines/blob/master/writeup_images/sliding_windows_img.jpg' width='500'>
 
 2) The search_from_prior() function takes in a binary top-down image, previous coefficients of the polynomials for the left and right lanes, and returns updated coefficients. This is a shorter algorithm that does a targeted search in the margin around the previous line position.
 
-**Insert Image**
+<img src='https://github.com/leeping-ng/Udacity-CarND-Advanced-Lane-Lines/blob/master/writeup_images/search_from_prior_img.jpg' width='500'>
 
 The Look-Ahead Filter in Step 9 will decide which of these functions should be used.
 
@@ -93,7 +102,7 @@ Takes in the following:
 - Left and right lane radii and vehicle offset dimensions
 Returns an image with the area between both lane lines highlighted, and left/right lane radii and vehicle offset displayed.
 
-**Insert Image**
+<img src='https://github.com/leeping-ng/Udacity-CarND-Advanced-Lane-Lines/blob/master/writeup_images/result.jpg' width='500'>
 
 ### Step 8: Sanity Check
 Takes in the coefficients of polynomials describing both lane lines, and checks for the following:
